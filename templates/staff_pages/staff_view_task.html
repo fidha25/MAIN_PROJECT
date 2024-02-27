@@ -1,0 +1,58 @@
+{% include 'staff_pages/staff_header.html' %}
+
+
+<style>
+
+
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>    
+    <div class="top-section">
+        <div class="container">
+ 
+ 
+            <div class="row">
+
+                <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px"> ASSIGNED WORKS</h2></center></b>
+
+<table align="center" class="table">
+        
+    <tr>
+        <th>Task</th>
+        <th>Date</th>
+        <th>Upload Work Report</th>
+       
+
+    </tr>
+    {%for i in data['view']%}
+    <tr>
+        <td>{{i['task']}}</td>
+        <td>{{i['date']}}</td>
+        <td><a href="staff_upload_wrk_report?assign_id={{i['assign_id']}}">WORK REPORT</a></td>
+       
+    </tr>
+    {%endfor%}
+
+</table>
+         
+</div>
+</div>
+</div>
+</div>
+
+
+{%include 'footer.html' %}

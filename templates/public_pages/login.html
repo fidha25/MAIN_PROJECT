@@ -1,0 +1,100 @@
+{% include 'public_pages/public_header.html'%}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-image: url("/static/assets/img/1234.jpg");
+        background-color: #282c34; /* Dark background color */
+        color: #fff; /* Light text color */
+        margin: 0;
+        padding: 0;
+        background-size: cover;
+        animation: bgAnimationX 41s linear infinite;
+    }
+    
+    @keyframes bgAnimationX {
+        0% {
+            background-position: 100% 0%;
+        }
+        100% {
+            background-position: 0% 0%;
+        }
+    }
+    
+    .login-container {
+        background-image: linear-gradient(to bottom right, #1c1c1c, #000); /* Gradient background color */
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 500px;
+        padding: 50px;
+        margin: 100px auto;
+    }
+    
+    .login-container h2 {
+        margin-bottom: 30px;
+        color: #fff; /* Light text color */
+    }
+    
+    .login-form input {
+        width: 100%;
+        padding: 15px;
+        margin: 15px 0;
+        border: 1px solid #444; /* Dark border color */
+        border-radius: 5px;
+        background-color: #333; /* Dark input background color */
+        color: #fff; /* Light text color */
+    }
+    
+    .login-form button {
+        background-color: #61dafb; /* Button background color */
+        color: #fff; /* Button text color */
+        border: none;
+        border-radius: 5px;
+        padding: 15px 20px;
+        cursor: pointer;
+    }
+    
+    .login-form button:hover {
+        background-color: #4fa3d1; /* Hover state background color */
+    }
+    
+    .register {
+        color: #aaa; /* Light text color for the registration link */
+        margin-top: 15px;
+    }
+    
+    .register a {
+        color: #61dafb; /* Link color */
+    }
+    
+    /* Add any additional styles as needed */
+    </style>
+    
+
+<div class="top-section">
+    <div class="container">
+        <div class="">
+            <center>
+                <div class="login-container">
+                    <form class="login-form" action="" method="post">
+                        <h2>Login</h2>
+                        <input type="text" placeholder="Enter the username" class="form-control" name="username" required>
+                        <input type="password" placeholder="Enter your password" class="form-control" name="password" required>
+                        <button type="submit" name="submit">Login</button>
+                        <div class="register">
+                        </div>
+                    </form>
+                </div>
+            </center>
+            
+            
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%include 'footer.html'%}
+

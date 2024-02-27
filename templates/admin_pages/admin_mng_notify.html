@@ -1,0 +1,75 @@
+{% include 'admin_pages/admin_header.html' %}
+<style>
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>
+    <div class="top-section">
+        <div class="container">
+            <div class="row">
+
+<form action=""method="post">
+    <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px">NOTIFICATION DETAILS</h2></center></b>
+
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <td><input type="text" name="title" id=""></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td><textarea name="description" id="" cols="5" rows="5" class="form form-control"></textarea></td>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <td><input type="date" name="date" id="" class="form form-control"></td>
+        </tr>
+        <tr>
+            <th>Time</th>
+            <td><input type="time" name="time" id="" class="form form-control"></td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><input type="submit" name="submit" id="" class="btn btn-info"></td>
+        </tr>
+    </table>
+</form>
+<br><br>
+<table class="table">
+    <tr>
+        
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Time</th>
+    </tr>
+    {%for i in  data['notify']%}
+    <tr>
+        <td  style="font-size: 15px;">{{i['title']}}</td>
+        <td  style="font-size: 15px;">{{i['description']}}</td>
+        <td  style="font-size: 15px;">{{i['date']}}</td>
+        <td  style="font-size: 15px;">{{i['time']}}</td>
+    </tr>
+    {%endfor%}
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+    
+{% include 'footer.html' %}

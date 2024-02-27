@@ -1,0 +1,12 @@
+INSERT INTO register VALUES(NULL,'arun',13,123456789,'aggggrrrtgghnfh po hss',10/09/2001,'asdafgg@gmail.com','male')
+INSERT INTO register VALUES(NULL,'balu',19,987654321,'stas ktym',20/03/2003,'balug@gmail.com','male')
+SELECT * FROM`register`
+SELECT address FROM`register`
+SELECT NAME FROM`register` WHERE NAME='arun'
+SELECT MAX(salary) FROM`register`
+SELECT MIN(salary) FROM`register`
+SELECT COUNT(salary) FROM`register`
+SELECT SUM(salary)FROM`register`
+SELECT AVG(salary) FROM`register`
+DELETE FROM`register` WHERE reg_id=4
+UPDATE `register` SET NAME='anandhan' WHERE reg_id=3

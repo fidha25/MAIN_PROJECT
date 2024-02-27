@@ -1,0 +1,67 @@
+{% include 'manager_pages/manager_header.html' %}
+
+    
+<style>
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>
+    <div class="top-section">
+        <div class="container">
+            <div class="row">
+
+    <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px"> COMPLAINTS & REPLY</h2></center></b>
+<br><br>
+     
+       <form method="post">
+        <table class="table">
+            <textarea name="cmplt" id="" cols="30" rows="10" placeholder="Type Your Complaint" style="font-size: 20px;"></textarea>
+            <td><input type="submit" name="submit" id="" class="btn btn-primary"></td>
+
+        </table>
+    
+
+      
+
+        <table align="center" class="table">
+            <tr>
+                <th>Sl.no</th>
+                <th>Complaint</th>
+                <th>Reply</th>
+                <th>Date</th>
+
+            </tr>
+         {%for i in data['cmp']%}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{i['complaint']}}</td>
+                <td>{{i['reply']}}</td>
+                <td>{{i['date']}}</td>
+                <!-- <td><a href="?reply&cid={{i['complaint_id']}}">reply</a></td> -->
+        
+            </tr>
+        {%endfor%}
+        </table>
+
+        </form>
+    </form>
+
+</div>
+</div>
+</div>
+</div>
+    
+{% include 'footer.html' %}

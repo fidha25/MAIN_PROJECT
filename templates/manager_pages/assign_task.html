@@ -1,0 +1,64 @@
+{% include 'manager_pages/manager_header.html' %}
+
+<style>
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>
+    <div class="top-section">
+        <div class="container">
+            <div class="row">
+
+    <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px"> MANAGE TASK FOR STAFF</h2></center></b>
+<br><br>
+<form action="" method="post">
+    <table border="" align="center"  class="table">
+        <tr>
+            <th>Select Staff</th>
+            <td><select name="staff" id="" class="form form-control">
+                {%for i in data['staff']%}
+                <option value="{{i['staff_id']}}">{{i['first_name']}} {{i['last_name']}}</option>
+                {%endfor%}
+            </select>
+        </td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="submit" id="" class="btn btn-info"></td>
+        </tr>
+    </table>
+</form>
+<br><br>
+<!-- <table border="" align="center" class="table">
+    <tr>
+        <th>Staff</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+    {% for i in q12%}
+    <tr>
+        <td>{{i.STAFF.first_name}}{{i.STAFF.last_name}}</td>
+         <td>{{i.date}}</td>
+         <td>{{i.status}}</td>
+    </tr>
+    {%endfor%}
+</table> -->
+
+</div>
+</div>
+</div>
+</div>
+
+{% include 'footer.html' %}

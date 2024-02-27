@@ -1,0 +1,119 @@
+{% include 'admin_pages/admin_header.html' %}
+    
+<style>
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>
+
+    {%if data['updates']%}
+
+    <div class="top-section">
+        <div class="container">
+            <div class="row">
+                <form action="" method="post">
+                    <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px"> WORK MANAGEMENT</h2></center></b>
+            
+                    <table align="center" class="table">
+                        <tr>
+                            <th>Work</th>
+                            <td><input type="text" name="report" id=""></td>
+                        </tr>
+                        <tr>
+                            <th>select staff</th>
+                            <td><select name="st" id="" class="form form-control ">
+                                {% for i in data['staffs']%}
+                                        <option value="{{i['staff_id']}}">{{i['first_name']}}</option>
+                                        {%endfor%}
+                                    </select>
+                                
+                                </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><input type="submit" name="update" id="" class="btn btn-info" value="Update"></td>
+                        </tr>
+                    </table>
+                </form>
+        
+
+
+                {%else%}    
+
+
+                <div class="top-section">
+                    <div class="container">
+                        <div class="row">
+    <form action="" method="post">
+        <b><center><h2 style="color: black; text-shadow: 2px 2px 4px #333; font-weight: bold; font-size:30px"> WORK MANAGEMENT</h2></center></b>
+
+        <table align="center" class="table">
+            <tr>
+                <th>Work</th>
+                <td><input type="text" name="report" id=""></td>
+            </tr>
+            <tr>
+                <th>select staff</th>
+                <td><select name="st" id="" class="form form-control ">
+                    {% for i in data['staffs']%}
+                            <option value="{{i['staff_id']}}">{{i['first_name']}}</option>
+                            {%endfor%}
+                        </select>
+                    
+                    </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" name="submit" id="" class="btn btn-info"></td>
+            </tr>
+        </table>
+    </form>
+
+    <br><br><br>
+    <table align="center" class="table">
+    
+        <tr>
+             <th>Sl.no</th>
+            <th>Staff</th>
+            <th>Report</th>
+            <th>Date</th>
+            <th>Update</th>
+            <th>Delete</th>
+            
+        </tr>
+        {%for i in data['wrk']%}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{i['first_name']}} {{i['last_name']}}</td>
+            <td>{{i['report']}}</td>
+            <td>{{i['date']}}</td>
+            
+            <td><a href="?action=update&work_id={{i['work_id']}}" class="btn btn-info">Update</a></td>
+            <td><a href="?action=delete&work_id={{i['work_id']}}" class="btn btn-info">Delete</a></td>
+        </tr>
+        {%endfor%}
+
+    </table>
+    {%endif%}
+
+</div>
+</div>
+</div>
+</div>  
+    
+{% include 'footer.html' %}
+
+        

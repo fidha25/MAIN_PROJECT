@@ -1,0 +1,54 @@
+{% include 'admin_pages/admin_header.html' %}
+    
+
+    
+<style>
+    table {
+        width: 60%;
+      
+       
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    
+    th, td {
+      color:white;
+      font-size: 18px;
+        padding:12px;
+        text-align: center;
+    }
+    </style>
+    <div class="top-section">
+        <div class="container">
+            <div class="row">
+                
+<table border="" class="table" align="center">
+    <tr>
+        <th>Sl no.</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Image</th>
+    </tr>
+    {% for i in data['staff'] %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{i['first_name']}}</td>
+        <td>{{i['last_name']}}</td>
+
+        <td>{{i['place']}}</td>
+        <td>{{i['gender']}}</td>
+        <td><img src="{{i['image']}}" alt=""></td>
+        <td><a href="?sid={{i['staff_id']}}" class="btn btn-success">Add as a Manager</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+</div>
+</div>
+</div>  
+{% include 'footer.html' %}

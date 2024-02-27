@@ -1,0 +1,79 @@
+{% include 'admin_pages/admin_header.html' %}
+
+
+<form action=""method="post" enctype="multipart/form-data">
+    <table>
+    <tr>
+            <th>first name</th>
+            <td><input type="text" name="FIRSTNAME" id=""></td>
+        </tr>
+        <tr>
+            <th>last name</th>
+            <td><input type="text" name="LASTNAME" id=""></td>
+        </tr>
+        <tr>
+            <th>contact_no</th>
+            <td><input type="text" name="contact"></td>
+        </tr>
+        <tr>
+            <th>place</th>
+            <td><input type="text" name="PLACE" id=""></td>
+        </tr>
+        <tr>
+            <th>gender</th>
+            <td><input type="radio" name="gender" value="Male">Male
+            <input type="radio" name="gender" value="Female">Female
+        <input type="radio" name="gender" value="Other">Other</td>
+        </tr>
+        <tr>
+            <th>image</th>
+            <td><input type="file" name="image" ></td>
+        </tr>
+        <tr>
+            <th>username</th>
+            <td><input type="text" name="username"></td>
+        </tr>
+        <tr>
+            <th>password</th>
+            <td><input type="password" name="password" id=""></td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="submit" value="Submit"></td>
+        </tr>
+     
+        
+
+    </table>
+</form>
+
+<table>
+    <tr>
+        <th>Sl no.</th>
+        <th>First name</th>
+        <th>last name</th>
+        <th>address</th>
+        <th>contact</th>
+        <th>gender</th>
+        <th>Image</th>
+    </tr>
+    {% for i in data['staff'] %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{i['first_name']}}</td>
+        <td>{{i['last_name']}}</td>
+
+        <td>{{i['place']}}</td>
+        <td>{{i['gender']}}</td>
+        <td><img src="{{i['image']}}" alt=""></td>
+        <td>
+            <a href="">update</a>
+            <a href="">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+{% include 'footer.html' %}
+
