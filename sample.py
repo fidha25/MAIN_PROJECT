@@ -6,7 +6,7 @@ import imutils
 import cv2
 from database import *
 import random
-path=r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\ezyzip\static\\"
+path=r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\security\static\\"
 from flask import request
 import time
 import os
