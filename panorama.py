@@ -116,4 +116,3 @@ class Panaroma:
 
         return vis
     
-    rfergt54g5hy
