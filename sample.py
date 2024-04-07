@@ -6,7 +6,9 @@ import imutils
 import cv2
 from database import *
 import random
-path=r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\security\static\\"
+path=r"C:\Users\hp\OneDrive\Desktop\proj\ezyzip (2)\ezyzip\static\\"
+
+path1=r"C:\Users\hp\OneDrive\Desktop\proj\ezyzip (2)\ezyzip\static\CHECK\\"
 from flask import request
 import time
 import os
@@ -37,7 +39,10 @@ def filepost(uploaded_file_path,id,original_filename,ext):
     s1 = img[:, :slize + (slize // 2)]
     s2 = img[:, slize: (2 * slize) + (slize // 2)]
     s3 = img[:, (2 * slize): (3 * slize) + (slize // 2)]
-    s4 = img[:, 3 * slize:]
+    s4 = img[:, (3 * slize):]
+    
+  
+    
 
     # Save each half with the same name as the original file
     face1_path = path + f"{original_filename}_face1.bmp"
@@ -70,71 +75,55 @@ def filepost(uploaded_file_path,id,original_filename,ext):
 
 
 
-def filedecrypt():
+def filedecrypt(img1, img2, img3, img4, imga1, imga2, imga3, imga4):
 
     filename = []
-
-
     from sa_aes import  dec_process_image
 
-    dec_process_image(path + "face1enc.bmp", path + "face1d.bmp")
-    dec_process_image(path + "face2enc.bmp", path + "face2d.bmp")
-    dec_process_image(path + "face3enc.bmp", path + "face3d.bmp")
-    dec_process_image(path + "face4enc.bmp", path + "face4d.bmp")
+    # Decrypt images
+    dec_process_image(path + imga1, path1 + img1)
+    dec_process_image(path + imga2, path1 + img2)
+    dec_process_image(path + imga3, path1 + img3)
+    dec_process_image(path + imga4, path1 + img4)
 
-    print("1111")
+    # Add decrypted image paths to filename list
+    filename.append(path1 + img1)
+    filename.append(path1 + img2)
+    filename.append(path1 + img3)
+    filename.append(path1 + img4)
 
+    # Read images
+    images = [cv2.imread(file) for file in filename]
 
-
-
-    filename.append(
-        r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\ezyzip\static\face1d.bmp")
-    filename.append(
-        r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\ezyzip\static\face2d.bmp")
-    filename.append(
-        r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\ezyzip\static\face3d.bmp")
-    filename.append(
-        r"C:\Users\hp\OneDrive\Desktop\project\ezyzip (2)\ezyzip (2)\ezyzip\static\face4d.bmp")
-
-    images = []
-    no_of_images = 4
-
-    for i in range(no_of_images):
-        images.append(cv2.imread(filename[i]))
-
-    # We need to modify the image resolution and keep our aspect ratio use the function imutils
-
-    # for i in range(no_of_images):
-    #     images[i] = imutils.resize(images[i], width=400)
-    #
-    # for i in range(no_of_images):
-    #     images[i] = imutils.resize(images[i], height=400)
-
-
-    panaroma = Panaroma()
-    if no_of_images == 2:
-        (result, matched_points) = panaroma.image_stitch([images[0], images[1]], match_status=True)
+    # Stitch images
+    panorama = Panaroma()
+    if len(images) == 2:
+        (result, matched_points) = panorama.image_stitch([images[0], images[1]], match_status=True)
     else:
-        (result, matched_points) = panaroma.image_stitch([images[no_of_images - 2], images[no_of_images - 1]],
-                                                         match_status=True)
-        for i in range(no_of_images - 2):
-            (result, matched_points) = panaroma.image_stitch([images[no_of_images - i - 3], result], match_status=True)
+        (result, matched_points) = panorama.image_stitch([images[-2], images[-1]], match_status=True)
+        for i in range(len(images) - 2):
+            (result, matched_points) = panorama.image_stitch([images[-i - 3], result], match_status=True)
 
-    # to show the got panaroma image and valid matched points
+    # Find contours of non-black regions
+    gray = cv2.cvtColor(result, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gray, 1, 255, cv2.THRESH_BINARY)
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    #
-    # cv2.imshow("Keypoint Matches", matched_points)
-    # cv2.imshow("Panorama", result)
+    # Get bounding box of contours
+    x, y, w, h = cv2.boundingRect(contours[0])
 
-    # to write the images
-    cv2.imwrite("Matched_points.jpg", matched_points)
-    cv2.imwrite(path+"Panorama_image.jpg", result)
+    # Crop image
+    new_image = result[y:y+h, x:x+w]
 
-    return send_file(path+"Panorama_image.jpg")
+    # Save cropped image
+    cv2.imwrite(r"C:\\Users\\hp\\OneDrive\\Desktop\\proj\\ezyzip (2)\\ezyzip\\static\\CHECK\\" + "Panorama_image.jpg", new_image)
 
+    return "OK"
 
     #
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
+
+
 
 
