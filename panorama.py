@@ -1,11 +1,16 @@
 import numpy as np
-import imutils
+#import imutils
 import cv2
-
+import time
 class Panaroma:
 
-    def image_stitch(self, images, lowe_ratio=0.75, max_Threshold=4.0,match_status=False):
+    @staticmethod
+    def calculate_rmse(image1, image2):
+        # Calculate RMSE
+        return np.sqrt(np.mean((image1 - image2) ** 2))
 
+    def image_stitch(self, images, lowe_ratio=0.75, max_Threshold=4.0,match_status=False):
+        start_time = time.time()
         #detect the features and keypoints from SIFT
         (imageB, imageA) = images
         (KeypointsA, features_of_A) = self.Detect_Feature_And_KeyPoints(imageA)
@@ -22,12 +27,32 @@ class Panaroma:
         result_image = self.getwarp_perspective(imageA,imageB,Homography)
         result_image[0:imageB.shape[0], 0:imageB.shape[1]] = imageB
 
+        end_time = time.time()
+        time_taken = end_time - start_time
+        
+        rmse = self.calculate_rmse(result_image, np.concatenate((imageA, imageB), axis=1))
+# Calculate the total number of keypoints detected in both images
+        total_keypoints = len(KeypointsA) + len(KeypointsB)
+
+# Calculate the Keypoint Matching Efficiency
+        keypoint_matching_efficiency = (len(matches) / total_keypoints) * 100
+
         # check to see if the keypoint matches should be visualized
         if match_status:
             vis = self.draw_Matches(imageA, imageB, KeypointsA, KeypointsB, matches,status)
-
+            print("Number of keypoints detected in image A:", len(KeypointsA))
+            print("Number of keypoints detected in image B:", len(KeypointsB))
+            print("Number of matches:", len(matches))
+            print("Time taken for stitching:", time_taken)
+            print("Keypoint Matching Efficiency: {:.2f}%".format(keypoint_matching_efficiency))
+            print("RMSE:", rmse)
             return (result_image, vis)
-
+        print("Number of keypoints detected in image A:", len(KeypointsA))
+        print("Number of keypoints detected in image B:", len(KeypointsB))
+        print("Number of matches:", len(matches))
+        print("Time taken for stitching:", time_taken)
+        print("Keypoint Matching Efficiency: {:.2f}%".format(keypoint_matching_efficiency))
+        print("RMSE:", rmse)
         return result_image
 
     def getwarp_perspective(self,imageA,imageB,Homography):
@@ -37,14 +62,22 @@ class Panaroma:
         return result_image
 
     def Detect_Feature_And_KeyPoints(self, image):
+        print(image)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
+        print(gray)
         # detect and extract features from the image
-        descriptors = cv2.xfeatures2d.SIFT_create()
+        # descriptors = cv2.xfeatures2d.SIFT_create()
+      
+
+# With this line for OpenCV 4.x and later
+        descriptors = cv2.SIFT_create()
+        print(descriptors)
         (Keypoints, features) = descriptors.detectAndCompute(image, None)
 
         Keypoints = np.float32([i.pt for i in Keypoints])
         return (Keypoints, features)
+
+  
 
     def get_Allpossible_Match(self,featuresA,featuresB):
 
@@ -115,4 +148,4 @@ class Panaroma:
                 cv2.line(vis, ptA, ptB, (0, 255, 0), 1)
 
         return vis
-    
+   
